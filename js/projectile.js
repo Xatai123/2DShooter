@@ -11,17 +11,15 @@ export class Projectile {
     move(){
         this.x += this.speed * Math.sin(2 * Math.PI * this.direction/360);
         this.y -= this.speed * Math.cos(2 * Math.PI * this.direction/360);
+        this.draw()
     }
 
     draw() {
-        console.log("works")
         this.ctx.beginPath();
-        this.ctx.lineWidth = 5;
-        this.ctx.strokeStyle = "red"
-        this.ctx.moveTo(this.x, this.y);
-        this.ctx.lineTo(this.x + 15 * Math.sin(2 * Math.PI * this.direction/360), this.y - 15 * Math.cos(2 * Math.PI * this.direction/360));
-        this.ctx.stroke();
-        this.move();
+        this.ctx.lineWidth = 2;
+        this.ctx.fillStyle = "red";
+        this.ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI);
+        this.ctx.fill();
     }
 
 }

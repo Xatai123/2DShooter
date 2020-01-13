@@ -23,7 +23,6 @@ export class Car {
 
     shoot() {
         this.pro.push(new Projectile(this.ctx, this.x + (this.radius*1.1) * Math.sin( 2 * Math.PI * this.direction / 360), this.y - (this.radius*1.1) * Math.cos(2 * Math.PI * this.direction / 360), this.speed + 2 , this.direction));
-        console.log(this.pro)
     }
 
     draw() {
@@ -41,10 +40,8 @@ export class Car {
             this.radius / 5, 0, 2 * Math.PI);
         this.ctx.fill();
 
-        // this.pro.forEach(e => e.draw());
-
         if (typeof this.pro !== 'undefined'){
-            this.pro.forEach(e => e.draw());
+            this.pro.forEach(e => e.move());
         }
     }
 

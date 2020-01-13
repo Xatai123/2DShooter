@@ -13,13 +13,17 @@ let keysPressed = {};
 
 $("body").on("keydown", function (e) {
     keysPressed[event.which] = true;
-    if (event.which == 32){
+    if (e.which === 87 || e.which === 190){
         car.shoot();
+        console.log("*shooting noise*")
     }
 });
 $("body").on("keyup", function (e) {
     delete keysPressed[event.which];
 });
+// $("body").on("keypress", function (e) {
+    
+// });
 
 function keyMove() {
     ctx.clearRect(0, 0, w, h);
@@ -29,6 +33,7 @@ function keyMove() {
     else if (keysPressed[39]) car.turn(1);
     if (keysPressed[38]) car.move(1);
     else if (keysPressed[40]) car.move(-1);
+    console.log(keysPressed)
 }
 
 setInterval(keyMove, 10);

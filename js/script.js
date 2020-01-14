@@ -24,7 +24,7 @@ function fill(){
 
 $("body").on("keydown", function (e) {
     keysPressed[event.which] = true;
-    if (e.which === 87 || e.which === 190) {
+    if (e.which === 69 || e.which === 32) {
         car.shoot();
     }
 });
@@ -41,10 +41,10 @@ function main() {
     }
     targets.forEach(e => e.draw());
 
-    if (keysPressed[37]) car.turn(-1);
-    else if (keysPressed[39]) car.turn(1);
-    if (keysPressed[38]) car.move(1);
-    else if (keysPressed[40]) car.move(-1);
+    if (keysPressed[37] || keysPressed[65]) car.turn(-1);
+    else if (keysPressed[39] || keysPressed[68]) car.turn(1);
+    if (keysPressed[38] || keysPressed[87]) car.move(1);
+    else if (keysPressed[40] || keysPressed[83]) car.move(-1);
 }
 
 setInterval(main, 10);

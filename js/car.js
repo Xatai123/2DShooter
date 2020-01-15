@@ -26,7 +26,7 @@ export class Car {
         if (car.cd) {
             this.projectiles.push(new Projectile(this.ctx, this.x + (this.radius * 1.1) * Math.sin(2 * Math.PI * this.direction / 360), this.y - (this.radius * 1.1) * Math.cos(2 * Math.PI * this.direction / 360), this.speed + 2, this.direction));
             car.cd = false;
-            setTimeout(function () { car.cd = true; }, 500);
+            setTimeout(function () {car.cd = true; }, 500);
         }
     }
 

@@ -12,9 +12,10 @@ var car = new Car(ctx, 500, 250, 3);
 
 var keysPressed = {};
 
+var wave = 1;
 var targets = [];
 fill();
-function fill(){
+function fill() {
     for (let i = 0; i < 10; i++) {
         let x = Math.random() * $(window).width();
         let y = Math.random() * $(window).height();
@@ -32,15 +33,28 @@ $("body").on("keyup", function (e) {
     delete keysPressed[event.which];
 });
 
-function main() {
-    ctx.clearRect(0, 0, w, h);
-    car.draw(targets);
+function drawScreen() {
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.font = "40px Arial";
+    ctx.fillText("Wave: " + wave, 20, 50);
+}
 
-    if(targets.length<1){
+function main() {
+    //clear everything
+    ctx.clearRect(0, 0, w, h);
+    //draw car and its projectiles
+    car.draw(targets);
+    //add targets if all are gone
+    if (targets.length < 1) {
+        wave++;
         fill();
     }
+    //draw targets
     targets.forEach(e => e.draw());
-
+    //write wave number on screen
+    drawScreen();
+    //move car
     if (keysPressed[37] || keysPressed[65]) car.turn(-1);
     else if (keysPressed[39] || keysPressed[68]) car.turn(1);
     if (keysPressed[38] || keysPressed[87]) car.move(1);

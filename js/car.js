@@ -1,7 +1,6 @@
 import { Projectile } from './projectile.js';
 export class Car {
 
-
     constructor(ctx, x, y, s) {
         this.radius = 50;
         this.speed = s;
@@ -10,7 +9,8 @@ export class Car {
         this.y = y;
         this.direction = 0;
         this.draw();
-        this.pro = [];
+        this.projectiles = [];
+        this.cd = true;
     }
 
     turn(dir) {
@@ -21,8 +21,13 @@ export class Car {
         this.y -= dir * this.speed * Math.cos(2 * Math.PI * this.direction / 360);
     }
 
-    shoot() {
-        this.pro.push(new Projectile(this.ctx, this.x + (this.radius * 1.1) * Math.sin(2 * Math.PI * this.direction / 360), this.y - (this.radius * 1.1) * Math.cos(2 * Math.PI * this.direction / 360), this.speed + 2, this.direction));
+    async shoot() {
+        var car = this;
+        if (car.cd) {
+            this.projectiles.push(new Projectile(this.ctx, this.x + (this.radius * 1.1) * Math.sin(2 * Math.PI * this.direction / 360), this.y - (this.radius * 1.1) * Math.cos(2 * Math.PI * this.direction / 360), this.speed + 2, this.direction));
+            car.cd = false;
+            setTimeout(function () { car.cd = true; }, 500);
+        }
     }
 
     draw(arr) {
@@ -40,12 +45,12 @@ export class Car {
             this.radius / 5, 0, 2 * Math.PI);
         this.ctx.fill();
 
-        if (typeof this.pro !== 'undefined') {
-            let p = this.pro;
+        if (typeof this.projectiles !== 'undefined') {
+            let p = this.projectiles;
             p.forEach(function (e) {
                 e.move(arr);
                 if (e.x < 0 || e.y < 0 || e.x > $(window).width() || e.y > $(window).height()) {
-                    p.splice(p.indexOf(e),1);
+                    p.splice(p.indexOf(e), 1);
                 }
             })
         }
